@@ -1,0 +1,9 @@
+Motor test of p3DX:
+	Power on the robot
+	wait till a buzer beep sound comes. It indicates that the bot has started
+	press motor power button on left side of robot (when viewed from back)
+		pressing this button will generate beeping sound 5 times indicating about 5 second time interval
+	when this button is pressed within this 5 seconds i.e. befor beeping sound ends, a new beep sound will 
+	indicate that motor test is started. then motor will start turning one after other and finally the robot 
+	will comer to rest at initial orientation. After few seconds again a beep soud will indicates that motor 
+	test sun has ended.
