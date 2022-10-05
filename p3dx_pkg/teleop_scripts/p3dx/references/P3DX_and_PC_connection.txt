@@ -1,0 +1,37 @@
+Connect both P3DX and pc with the same router
+	P3DX_ip = ipv4 address of computer inside P3DX
+	pc_ip = ipv4 address of remote pc wich is to be connected with P3DX through same network
+
+On pc:
+	1) export ROS_IP=pc_ip
+	2) export ROS_MASTER_URI=http://pc_ip:11311/
+	3) roscore
+	   (Now after executing roscore, roscore terminal should start with the ip address of the pc with port number 11311
+	   as :	process[master]: started with pid [6307]
+	       	ROS_MASTER_URI=http://192.168.43.66:11311/)
+	   Here 192.168.43.66 is the ip address of pc on which roscore is running
+	
+	open in new terminal
+	4) export ROS_IP=pc_ip
+	5) rosrun joy joy_node
+
+	open in new terminal
+	6) export ROS_IP=pc_ip
+	7) rosrun teleop_bot joy_to_twist.py /cmd_vel:=/RosAria/cmd_vel _linear_scale:=2 _angular_scale:=4
+		Here two parameters are set for linear and angular velocity (setting these parametes are 
+		optional). _linear_scale set the scale factor of linear velocity and _angular_scale set the
+		scale factor of angular velocity. Default angular and linear velocity is 1 rad/s and 1 m/s.
+
+On P3DX robot:
+	NOTE: password of P3DX robots are "robot"
+
+	1) export ROS_IP=P3DX_ip
+	2) export ROS_MASTER_URI=http://pc_ip:11311/
+	3) rosrun rosaria RosAria _port:=port_name
+		 port_name = /dev/ttyS0
+		 	  or
+		 port_name = /dev/ttyUSB0
+		(after running rosaria on P3DX buzzer sound will indicate that rosaria is started and wheels 
+		will be locked now checking rosnode list on remote pc will show a new node RosAria. This nodes 
+		will be publishing messages on various topics and will be subscribing cmd_vel. The robot can 
+		be controlled by publishing velocity on this cmd_vel topic)
